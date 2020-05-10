@@ -23,7 +23,24 @@ const sendTokenResponse = (user, statusCode, res) => {
 };
 
 
-
+// User Registration 
+// General Routes
+// POST request
+exports.register = asyncHandler(async (req, res, next) => {
+    const { firstName, lastName, email, password, role, isAdmin } = req.body;
+    if (role === 'admin')
+        return next(new ErrorResponse('You can\'t regsiter as an Admin', 400));
+    // Register a new User
+    const user = await User.create({
+        firstName,
+        lastName,
+        email,
+        isAdmin,
+        password,
+        role,
+    });
+    sendTokenResponse(user, 200, res);
+});
 
 
 // basically , 1000 uses here just for converting second to miliseconds.
