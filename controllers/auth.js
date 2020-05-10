@@ -21,3 +21,13 @@ const sendTokenResponse = (user, statusCode, res) => {
         token,
     });
 };
+
+
+
+
+
+// basically , 1000 uses here just for converting second to miliseconds.
+// number of seconds in a day. 24 * 60 * 60 = 86400 sec
+// 1 sec = 1000 milliseconds
+// so after calculating expression,result is in milliseconds
+// days * 24 * 60 * 60 * 1000 = days * 86400000 ms  
