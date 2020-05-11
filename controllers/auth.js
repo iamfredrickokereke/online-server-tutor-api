@@ -70,6 +70,22 @@ exports.login = asyncHandler(async (req, res, next) => {
     sendTokenResponse(user, 200, res);
 });
 
+
+
+//User Logout
+// General routes
+// get request
+// /api/v1/logout
+exports.logout = asyncHandler(async (req, res, next) => {
+    res.cookie('token', 'none', {
+        expires: new Date(Date.now() + 10 * 1000),
+        httpOnly: true,
+    });
+    res.status(200).json({
+        success: true,
+        data: {},
+    });
+});
 // basically , 1000 uses here just for converting second to miliseconds.
 // number of seconds in a day. 24 * 60 * 60 = 86400 sec
 // 1 sec = 1000 milliseconds
