@@ -86,6 +86,21 @@ exports.logout = asyncHandler(async (req, res, next) => {
         data: {},
     });
 });
+
+
+// get profile Informations
+// Private Route
+// Get request
+// /api/v1/profile
+exports.profile = asyncHandler(async (req, res, next) => {
+    const user = await User.findById(req.user.id);
+    res.status(200).json({
+        success: true,
+        payload: user,
+    });
+});
+
+
 // basically , 1000 uses here just for converting second to miliseconds.
 // number of seconds in a day. 24 * 60 * 60 = 86400 sec
 // 1 sec = 1000 milliseconds
