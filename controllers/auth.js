@@ -1,6 +1,6 @@
 const asyncHandler = require('express-async-handler');
 const errorHandler = require('../_helpers/error-handler')
-const User = require('../models/user');
+const User = require('../models/User');
 
 
 //function to get token from model, create cookie and send response
@@ -19,6 +19,7 @@ const sendTokenResponse = (user, statusCode, res) => {
     res.status(statusCode).cookie('token', token, options).json({
         success: true,
         token,
+        data: user,
     });
 };
 
@@ -42,6 +43,32 @@ exports.register = asyncHandler(async (req, res, next) => {
     sendTokenResponse(user, 200, res);
 });
 
+
+
+// User Login
+// General routes
+// POST request
+// /api/v1/login
+
+
+exports.login = asyncHandler(async (req, res, next) => {
+    const { email, password } = req.body;
+    // Validate email & password
+    if (!email || !password) {
+        return next(new ErrorResponse('Please provide an email and password', 400));
+    }
+    // Check for user
+    const user = await User.findOne({ email }).select('+password');
+    if (!user) {
+        return next(new ErrorResponse('Invalid credentials', 401));
+    }
+    // Check if password matches
+    const isMatch = await user.matchPassword(password);
+    if (!isMatch) {
+        return next(new ErrorResponse('Invalid credentials', 401));
+    }
+    sendTokenResponse(user, 200, res);
+});
 
 // basically , 1000 uses here just for converting second to miliseconds.
 // number of seconds in a day. 24 * 60 * 60 = 86400 sec
