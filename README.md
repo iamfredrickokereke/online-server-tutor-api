@@ -22,11 +22,11 @@ GET /api/v1/
 
 | Parameter | Type | Description |
 | :--- | :--- | :--- |
-| `api_key` | `string` | **Required**. Your Gophish API key |
+| `api_key` | `string` | **Required**. Your API key |
 
 ## Responses
 
-Many API endpoints return the JSON representation of the resources created or edited. However, if an invalid request is submitted, or some other error occurs, Gophish returns a JSON response in the following format:
+Many API endpoints return the JSON representation of the resources created or edited. However, if an invalid request is submitted, or some other error occurs, End point returns a JSON response in the following format:
 
 ```javascript
 {
@@ -44,7 +44,7 @@ The `data` attribute contains any other metadata associated with the response. T
 
 ## Status Codes
 
-Gophish returns the following status codes in its API:
+Api returns the following status codes in its API:
 
 | Status Code | Description |
 | :--- | :--- |
